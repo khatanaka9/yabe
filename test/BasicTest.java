@@ -1,5 +1,3 @@
-import static org.junit.Assert.*;
-
 import java.util.*;
 
 import models.*;
@@ -56,7 +54,7 @@ public class BasicTest extends UnitTest {
 		assertNotNull(firstPost);
 		assertEquals(bob, firstPost.author);
 		assertEquals("My first post", firstPost.title);
-		assertEquals("Hello world", firstPost.connect);
+		assertEquals("Hello world", firstPost.content);
 		assertNotNull(firstPost.postedAt);
 
 	}
@@ -64,7 +62,7 @@ public class BasicTest extends UnitTest {
 	@Test
 	public void useTheCommentsRelation() {
 		// Create a new user and save it
-		User bob = new User("bob@gmail.com", "secret", "Bob").save();
+		final User bob = new User("bob@gmail.com", "secret", "Bob").save();
 
 		// Create a new post
 		Post bobPost = new Post(bob, "My first post", "Hello world").save();
