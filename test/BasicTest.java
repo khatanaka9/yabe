@@ -29,11 +29,11 @@ public class BasicTest extends UnitTest {
 	@Test
 	public void tryConnectAsUser() {
 		// Create a new user and save it
-		new User("bon@gmail.com", "secret", "Bob").save();
+		new User("bob@gmail.com", "secret", "Bob").save();
 
 		// Test
-		assertNotNull(User.connect("bob@gamil.com", "secret"));
-		assertNull(User.connect("bob@gmail.com", "secret"));
+		assertNotNull(User.connect("bob@gmail.com", "secret"));
+		assertNull(User.connect("bob@gmail.com", "badpassword"));
 		assertNull(User.connect("tom@gmail.com", "secret"));
 	}
 
@@ -91,6 +91,40 @@ public class BasicTest extends UnitTest {
 		assertEquals(1, User.count());
 		assertEquals(0, Post.count());
 		assertEquals(0, Comment.count());
+	}
+
+	@Test
+	public void postComments() {
+		// Create a new user and save it
+		final User bob = new User("bob@gmail.com", "secret", "Bob").save();
+
+		// Create a new post
+		final Post bobPost = new Post(bob, "My first post", "Hello world")
+				.save();
+
+		// Post a first comment
+		new Comment(bobPost, "Jeff", "Nice post").save();
+		new Comment(bobPost, "Tom", "I knew that!").save();
+
+		// Retrieve all comments
+		final List<Comment> bobPostComments = Comment.find("byPost", bobPost)
+				.fetch();
+
+		// Tests
+		assertEquals(2, bobPostComments.size());
+
+		final Comment firstComment = bobPostComments.get(0);
+		assertNotNull(firstComment);
+		assertEquals("Jeff", firstComment.author);
+		assertEquals("Nice post", firstComment.content);
+		assertNotNull(firstComment.postedAt);
+
+		final Comment secondComment = bobPostComments.get(1);
+		assertNotNull(secondComment);
+		assertEquals("Tom", secondComment.author);
+		assertEquals("I knew that!", secondComment.content);
+		assertNotNull(secondComment.postedAt);
+
 	}
 
 }
