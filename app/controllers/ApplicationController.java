@@ -2,8 +2,8 @@ package controllers;
 
 import java.util.*;
 
-import models.*;
-import models.repo.*;
+import models.post.*;
+import models.post.repo.*;
 import play.*;
 import play.data.validation.*;
 import play.mvc.*;
@@ -23,7 +23,7 @@ public class ApplicationController extends Controller {
 
 		final Post frontPost = Post.find("order by postedAt desc").first();
 
-		final List<Post> olderPosts = YabeRepo.findOlderPosts();
+		final List<Post> olderPosts = PostRepo.findOlderPosts();
 		System.out.println(frontPost);
 		render(frontPost, olderPosts);
 	}

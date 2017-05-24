@@ -1,10 +1,10 @@
-package models.repo;
+package models.post.repo;
 
 import java.util.*;
 
-import models.*;
+import models.post.*;
 
-public class YabeRepo {
+public class PostRepo {
 
 	// findFrontPost
 

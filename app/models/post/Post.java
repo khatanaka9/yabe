@@ -1,27 +1,29 @@
-package models;
+package models.post;
 
 import java.util.*;
 
 import javax.persistence.*;
 
+import models.comment.*;
+import models.user.*;
 import play.db.jpa.*;
 
 @Entity
 public class Post extends Model {
 
-	private final String title;
-	private final Date postedAt;
+	public String title;
+	public Date postedAt;
 
 	@Lob
-	private final String content;
+	public String content;
 
 	@ManyToOne
-	private final User author;
+	public User author;
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-	private final List<Comment> comments;
+	public List<Comment> comments;
 
-	private Post(final User author, final String title, final String content) {
+	public Post(final User author, final String title, final String content) {
 		this.author = author;
 		this.title = title;
 		this.content = content;
@@ -44,7 +46,8 @@ public class Post extends Model {
 	}
 
 	public Post next() {
-		return Post.find("postedAt > ? order by postedAt asc").first();
+		return Post.find("postedAt > ? order by postedAt asc", postedAt)
+				.first();
 	}
 
 }
