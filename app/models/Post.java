@@ -9,19 +9,19 @@ import play.db.jpa.*;
 @Entity
 public class Post extends Model {
 
-	public String title;
-	public Date postedAt;
+	private final String title;
+	private final Date postedAt;
 
 	@Lob
-	public String content;
+	private final String content;
 
 	@ManyToOne
-	public User author;
+	private final User author;
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-	public List<Comment> comments;
+	private final List<Comment> comments;
 
-	public Post(final User author, final String title, final String content) {
+	private Post(final User author, final String title, final String content) {
 		this.author = author;
 		this.title = title;
 		this.content = content;
@@ -44,8 +44,7 @@ public class Post extends Model {
 	}
 
 	public Post next() {
-		return Post.find("postedAt > ? order by postedAt asc", postedAt)
-				.first();
+		return Post.find("postedAt > ? order by postedAt asc").first();
 	}
 
 }

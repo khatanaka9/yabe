@@ -8,7 +8,7 @@
 <ul id="pagination">
     #{if post.previous()}
         <li id="previous()">
-            <a href="@{Application.show(post.previous().id)}">
+            <a href="@{ApplicationController.show(post.previous().id)}">
                 ${post.previous().title}
             </a>
         </li>
@@ -19,7 +19,7 @@
 #{display post:post, as:'full' /}
 
 <h3>Post a comment</h3>
-#{form @Application.postComment(post.id)}
+#{form @ApplicationController.postComment(post.id)}
     #{ifErrors}
         <p class="error">
             All fields are required!

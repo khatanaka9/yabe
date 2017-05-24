@@ -1,30 +1,26 @@
 package models;
 
-import static org.junit.Assert.*;
-
 import javax.persistence.*;
-
-import org.junit.*;
 
 import play.db.jpa.*;
 
 @Entity
 public class User extends Model {
 
-	public String email;
-	public String password;
-	public String fullname;
-	public boolean isAdmin;
+	private final String email;
+	private final String password;
+	private final String fullname;
+	private boolean isAdmin;
 
-	public User(String email, String password, String fullname) {
+	private User(final String email, final String password,
+			final String fullname) {
 		this.email = email;
 		this.password = password;
 		this.fullname = fullname;
 	}
 
-	public static User connect(String email, String password) {
-		return find("byEmailAndPassword", email,password).first();
+	public static User connect(final String email, final String password) {
+		return find("byEmailAndPassword", email, password).first();
 	}
-
 
 }

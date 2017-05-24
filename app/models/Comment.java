@@ -1,28 +1,28 @@
 package models;
 
-import java.util.*;
-
 import javax.persistence.*;
+
+import org.joda.time.*;
 
 import play.db.jpa.*;
 
 @Entity
 public class Comment extends Model {
 
-	public String author;
-	public Date postedAt;
+	private final String author;
+	private final DateTime postedAt;
 
 	@Lob
-	public String content;
+	private final String content;
 
 	@ManyToOne
-	public Post post;
+	private final Post post;
 
 	public Comment(final Post post, final String author, final String content) {
 		this.post = post;
 		this.author = author;
 		this.content = content;
-		this.postedAt = new Date();
+		this.postedAt = new DateTime();
 	}
 
 }
