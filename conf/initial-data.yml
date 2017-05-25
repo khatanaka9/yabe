@@ -1,6 +1,6 @@
 # Test data
 
-User(bob):
+user.User(bob):
     email:          bob@gmail.com
     password:       secret
     fullname:       Bob

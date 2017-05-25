@@ -10,7 +10,7 @@ import play.db.jpa.*;
 @Entity
 public class Comment extends Model {
 
-	// TODO hatanaka privateに修正（ゲッター必要）
+	// TODO harita privateに修正（ゲッター必要）
 	public String author;
 	public Date postedAt;
 
