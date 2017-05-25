@@ -11,14 +11,14 @@ import play.db.jpa.*;
 @Entity
 public class Post extends Model {
 
-	public String title;
-	public Date postedAt;
+	private final String title;
+	private final Date postedAt;
 
 	@Lob
-	public String content;
+	private final String content;
 
 	@ManyToOne
-	public User author;
+	private final User author;
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
 	public List<Comment> comments;
@@ -48,6 +48,38 @@ public class Post extends Model {
 	public Post next() {
 		return Post.find("postedAt > ? order by postedAt asc", postedAt)
 				.first();
+	}
+
+	/**
+	 * titleを取得します。
+	 * @return title
+	 */
+	public String getTitle() {
+	    return title;
+	}
+
+	/**
+	 * postedAtを取得します。
+	 * @return postedAt
+	 */
+	public Date getPostedAt() {
+	    return postedAt;
+	}
+
+	/**
+	 * contentを取得します。
+	 * @return content
+	 */
+	public String getContent() {
+	    return content;
+	}
+
+	/**
+	 * authorを取得します。
+	 * @return author
+	 */
+	public User getAuthor() {
+	    return author;
 	}
 
 }
