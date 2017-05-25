@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import models.comment.*;
+import models.comment.repo.*;
 import models.post.repo.*;
 import models.user.*;
 import play.db.jpa.*;
@@ -13,6 +14,8 @@ import play.db.jpa.*;
 public class Post extends Model {
 
 	private final String title;
+	// yabeの構造上、DateTimeを使用するとバイナリーに変わってしまうので、
+	// やむなくDateを使用している
 	private final Date postedAt;
 
 	@Lob
@@ -21,32 +24,30 @@ public class Post extends Model {
 	@ManyToOne
 	private final User author;
 
-	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-	public List<Comment> comments;
-
 	public Post(final User author, final String title, final String content) {
 		this.author = author;
 		this.title = title;
 		this.content = content;
 		this.postedAt = new Date();
-		this.comments = new ArrayList<Comment>();
-
 	}
 
 	public Post addComment(final String author, final String content) {
 		final Comment newComment = new Comment(this, author, content).save();
-		this.comments.add(newComment);
-		this.save();
 
 		return this;
 	}
 
+	// 関連しているコメント
+	public List<Comment> comments() {
+		return CommentRepo.findByComment(this);
+	}
+
 	public Post previous() {
-		return PostRepo.previousFind(postedAt);
+		return PostRepo.findByPostedAtPrevious(postedAt);
 	}
 
 	public Post next() {
-		return PostRepo.nextFind(postedAt);
+		return PostRepo.findByPostedAtNext(postedAt);
 	}
 
 	/**

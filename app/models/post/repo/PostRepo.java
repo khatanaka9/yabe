@@ -6,26 +6,20 @@ import models.post.*;
 
 public class PostRepo {
 
-	// findFrontPost
-
-	public static Post findFrontPost() {
+	public static Post findByPostedAtFirst() {
 		return Post.find("order by postedAt desc").first();
 	}
 
-	public static Post showFindby(final Long id) {
-		return Post.findById(id);
+	public static List<Post> findByPostedAt() {
+		return Post.find("order by postedAt desc").from(1).fetch(10);
 	}
 
-	public static Post postComment(final Long postId) {
-		return Post.findById(postId);
-	}
-
-	public static Post previousFind(final Date postedAt) {
+	public static Post findByPostedAtPrevious(final Date postedAt) {
 		return Post.find("postedAt < ? order by postedAt desc", postedAt)
 				.first();
 	}
 
-	public static Post nextFind(final Date postedAt) {
+	public static Post findByPostedAtNext(final Date postedAt) {
 		return Post.find("postedAt > ? order by postedAt asc", postedAt)
 				.first();
 	}
