@@ -28,7 +28,7 @@ public class Comment extends Model {
 
 	/**
 	 * authorを取得します。
-	 * 
+	 *
 	 * @return author
 	 */
 	public String getAuthor() {
@@ -37,7 +37,7 @@ public class Comment extends Model {
 
 	/**
 	 * postedAtを取得します。
-	 * 
+	 *
 	 * @return postedAt
 	 */
 	public Date getPostedAt() {
@@ -46,7 +46,7 @@ public class Comment extends Model {
 
 	/**
 	 * contentを取得します。
-	 * 
+	 *
 	 * @return content
 	 */
 	public String getContent() {
@@ -55,7 +55,7 @@ public class Comment extends Model {
 
 	/**
 	 * postを取得します。
-	 * 
+	 *
 	 * @return post
 	 */
 	public Post getPost() {

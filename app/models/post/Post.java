@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import models.comment.*;
+import models.post.repo.*;
 import models.user.*;
 import play.db.jpa.*;
 
@@ -41,45 +42,47 @@ public class Post extends Model {
 	}
 
 	public Post previous() {
-		return Post.find("postedAt < ? order by postedAt desc", postedAt)
-				.first();
+		return PostRepo.previousFind(postedAt);
 	}
 
 	public Post next() {
-		return Post.find("postedAt > ? order by postedAt asc", postedAt)
-				.first();
+		return PostRepo.nextFind(postedAt);
 	}
 
 	/**
 	 * titleを取得します。
+	 *
 	 * @return title
 	 */
 	public String getTitle() {
-	    return title;
+		return title;
 	}
 
 	/**
 	 * postedAtを取得します。
+	 *
 	 * @return postedAt
 	 */
 	public Date getPostedAt() {
-	    return postedAt;
+		return postedAt;
 	}
 
 	/**
 	 * contentを取得します。
+	 *
 	 * @return content
 	 */
 	public String getContent() {
-	    return content;
+		return content;
 	}
 
 	/**
 	 * authorを取得します。
+	 *
 	 * @return author
 	 */
 	public User getAuthor() {
-	    return author;
+		return author;
 	}
 
 }

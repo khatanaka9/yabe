@@ -3,6 +3,7 @@ package controllers;
 import java.util.*;
 
 import models.post.*;
+import models.post.collection.*;
 import models.post.repo.*;
 import play.*;
 import play.data.validation.*;
@@ -19,23 +20,20 @@ public class ApplicationController extends Controller {
 	}
 
 	public static void index() {
-		// final Post frontPost = YabeRepo.findFrontPost();
-
-		final Post frontPost = Post.find("order by postedAt desc").first();
-
-		final List<Post> olderPosts = PostRepo.findOlderPosts();
-		System.out.println(frontPost);
+		final Post frontPost = PostRepo.findFrontPost();
+		final List<Post> olderPosts = PostCollection.olderPosts();
 		render(frontPost, olderPosts);
 	}
 
 	public static void show(final Long id) {
-		final Post post = Post.findById(id);
+		final Post post = PostRepo.showFindby(id);
 		render(post);
 	}
 
 	public static void postComment(final Long postId,
 			@Required final String author, @Required final String content) {
-		final Post post = Post.findById(postId);
+		final Post post = PostRepo.postComment(postId);
+
 		if (validation.hasErrors()) {
 			render("ApplicationController/show.html", post);
 		}
